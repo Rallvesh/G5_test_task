@@ -9,6 +9,7 @@
 
 - Ansible 2.10+
 - Docker и Docker Compose
+- git
 - make (опционально)
 
 ## Клонирование репозитория и подготовка prometheus таргета
