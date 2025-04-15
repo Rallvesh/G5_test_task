@@ -1,0 +1,7 @@
+---
+- name: Install vector
+  hosts: all
+  become: true
+
+  roles:
+    - vector

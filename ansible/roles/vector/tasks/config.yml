@@ -1,0 +1,39 @@
+---
+
+- name: VECTOR | Create templates config skeleton
+  file:
+    path: "{{ vector_config_path }}/{{ item.path }}"
+    state: directory
+    owner: "{{ vector_user }}"
+    group: "{{ vector_group }}"
+    mode: 0640
+  with_filetree: "{{ vector_config_template_path }}"
+  when: "item.state == 'directory'"
+
+- name: VECTOR | Configure vector
+  template:
+    src: "{{ item.root }}/{{ item.path }}"
+    dest: "{{ vector_config_path }}/{{ item.path | replace('.j2', '') }}"
+    owner: "{{ vector_user }}"
+    group: "{{ vector_group }}"
+    mode: '0640'
+  with_filetree: "{{ vector_config_template_path }}"
+  when: "item.state == 'file'"
+  notify: Restart vector
+  tags: [vector_configure]
+
+- name: VECTOR | Create aggregation log file
+  become: true
+  file:
+    path: /var/log/test
+    state: touch
+    owner: "{{ vector_user }}"
+    group: "{{ vector_group }}"
+    mode: '0640'
+
+- name: VECTOR | Ensure vector docker group
+  user:
+    name: "{{ vector_user }}"
+    group: docker
+    groups: docker
+    append: True

@@ -1,0 +1,41 @@
+#                                    __   __  __
+#                                    \ \ / / / /
+#                                     \ V / / /
+#                                      \_/  \/
+#
+#                                    V E C T O R
+#                                   Configuration
+#
+# ------------------------------------------------------------------------------
+# Website: https://vector.dev
+# Docs: https://vector.dev/docs/
+# ------------------------------------------------------------------------------
+
+# Note: A full config spec is located at ./vector.spec.toml and examples
+#       in the ./examples folder.
+
+data_dir = "{{ vector_data_dir }}"
+
+[sources.docker_logs]
+#type = "file"
+#include = ["/var/lib/docker/containers/*/*.log"]
+type = "docker_logs"
+
+[sinks.print]
+type = "console"
+inputs = ["docker_logs"]
+encoding.codec = "json"
+
+[sinks.to_file]
+type = "file"
+inputs = [ "docker_logs" ]
+path = "/var/log/test"
+encoding.codec = "json"
+
+[sources.prometheus_metrics]
+type = "internal_metrics"
+
+[sinks.prometheus_exporter]
+type = "prometheus_exporter"
+inputs = ["prometheus_metrics"]
+address = "0.0.0.0:9598"
