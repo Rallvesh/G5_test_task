@@ -2,8 +2,8 @@
 
 Этот репозиторий предназначен для быстрого развертывания системы мониторинга с помощью:
 
-- **Ansible** — для настройки хоста и установки Vector
-- **Docker Compose** — для запуска контейнеров с Prometheus и Grafana
+- **Ansible** - для настройки хоста и установки Vector
+- **Docker Compose** - для запуска контейнеров с Prometheus и Grafana
 
 ## Требования
 
@@ -18,7 +18,7 @@
 git clone https://github.com/Rallvesh/G5_test_task.git
 cd G5_test_task
 nano prometheus-grafana/prometheus-config/prometheus.yml
-Заменить 10.10.20.129 на айпи хоста # Не придумал как корректно достучаться из контейнера с прометеем до порта вектора на локалхосте, поэтому это единственная правка руками
+Заменить 10.10.20.129 на айпи хоста # Не придумал, как корректно достучаться из контейнера с прометеем до порта вектора на локалхосте, поэтому это единственная правка руками
 ```
 
 ## Быстрый старт
@@ -33,15 +33,15 @@ make all
 
 Полный список команд:
 ```
-make или make all — запустит ansible и docker compose
+make или make all - запустит ansible и docker compose
 
-make ansible — только ansible-плейбук
+make ansible - только ansible-плейбук
 
-make monitoring — только Prometheus+Grafana через Docker Compose
+make monitoring - только Prometheus+Grafana через Docker Compose
 
-make down — остановка контейнеров
+make down - остановка контейнеров
 
-make restart — перезагрузка контейнеров
+make restart - перезагрузка контейнеров
 ```
 
 ### Prometheus & Grafana
